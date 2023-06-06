@@ -6,7 +6,7 @@ const secretKey = crypto.randomBytes(32).toString("hex");
 //////////User creation/////////////
 const createUser = async (req, res) => {
   try {
-    const { firstName, lastName, email, password } = req.body;
+    const { firstname, lastname, email, password } = req.body;
     // Generate salt
     const salt = await bcrypt.genSalt(10);
 
@@ -20,8 +20,8 @@ const createUser = async (req, res) => {
 
     // Create a new user instance
     const user = new User({
-      firstName,
-      lastName,
+      firstname,
+      lastname,
       email,
       password: hashedPassword,
     });
