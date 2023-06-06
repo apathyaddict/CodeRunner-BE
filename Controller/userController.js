@@ -6,7 +6,7 @@ const secretKey = crypto.randomBytes(32).toString("hex");
 //////////User creation/////////////
 const createUser = async (req, res) => {
   try {
-    const { firstname, lastname, email, password } = req.body;
+    const { firstname, lastname, email, password, nickname } = req.body;
     // Generate salt
     const salt = await bcrypt.genSalt(10);
 
@@ -23,6 +23,7 @@ const createUser = async (req, res) => {
       firstname,
       lastname,
       email,
+      nickname,
       password: hashedPassword,
     });
 
@@ -63,33 +64,38 @@ const loginUser = async (req, res) => {
     res.status(500).json({ error: "Login failed" });
   }
 };
+
 /////Search users///////
-const findUserById = async (res, req) => {
+const findUserById = async (req, res) => {
+  const {userId} = req.params
+
   try {
-    const userId = req.params.userId;
-    const userScore = req.params.score;
-    // Find the user in the database based on the user ID
-    const user = await User.findById(userId, userScore);
+    
+    const user = await User.findById(userId);
 
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
 
-    // Return the user data
-    res.json(user);
+    res.status(200).json(user);
+
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Server error" });
   }
 };
-const findAllUser = async (res, req) => {
+const findAllUser = async (req, res) => {
   try {
-    const users = await User.find();
-    res.json(users);
+    const users = await User.find({});
+
+    res.status(200).json(users);
+
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: error.message });
   }
 };
+
 module.exports = {
   createUser,
   loginUser,

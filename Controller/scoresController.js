@@ -21,7 +21,6 @@ const getAllScores = async (req, res) => {
 const getScoreByID = async (req, res) => {
     const { id } = req.params;
   
-  
     const singleScore = await Scores.findById(id);
   
     if (!singleScore) {
