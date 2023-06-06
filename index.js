@@ -19,7 +19,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 //Routes
-app.use("/singup", userRoute);
+app.use("/signup", userRoute);
 app.use("/login", userRoute);
 app.use('/scores', scoresRoute);
 
