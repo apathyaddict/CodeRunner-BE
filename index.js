@@ -1,9 +1,12 @@
+require ('dotenv').config();
 const express = require("express");
 const mongoose = require("mongoose");
 const app = express();
 const cors = require("cors");
 const userRoute = require("./Routes/userRoute");
 const scoresRoute = require("./Routes/scoresRoute");
+
+
 
 
 //Connect to mongodb
@@ -14,7 +17,7 @@ mongoose
   .then(() => console.log("connected"));
 
 //Middleware
-app.use(express.json);
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
@@ -26,7 +29,7 @@ app.use('/scores', scoresRoute);
 
 
 //Server start
-const port = process.env.Server_port || 3001;
-app.listen(port, () => {
-  console.log(`Server runing on ${port}`);
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => {
+  console.log(`Server runing on ${PORT}`);
 });

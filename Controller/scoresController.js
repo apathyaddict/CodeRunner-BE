@@ -77,6 +77,7 @@ const getHighestScore = async (req, res) => {
 //POST SCORE
 
 const addScore = async (req, res) => {
+  console.log(req.body)
     const { user, score } = req.body; 
 
     try {
