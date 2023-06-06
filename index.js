@@ -20,7 +20,7 @@ app.use(cors());
 
 //Routes
 app.use("/", userRoute);
-app.use("/scores", scoresRoute);
+app.use("/", scoresRoute);
 
 //Server start
 const PORT = process.env.PORT || 3001;
