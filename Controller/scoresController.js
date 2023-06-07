@@ -33,10 +33,11 @@ const getScoreByID = async (req, res) => {
 
 // GET user's last score
 const getLastScore = async (req, res) => {
-    const userId = req.params.id; // Assuming the user ID is passed as a parameter
   
+    const { id } = req.params;
+
     try {
-      const lastScore = await Scores.findOne({ user: userId })
+      const lastScore = await Scores.findOne({ userId: id })
         .sort({ createdAt: -1 })
         .select("score")
         .exec();
@@ -54,10 +55,10 @@ const getLastScore = async (req, res) => {
 
 // GET user's highest score
 const getHighestScore = async (req, res) => {
-    const userId = req.params.id; 
-    
+  const { id } = req.params;
+   
     try {
-      const highestScore = await Scores.findOne({ user: userId })
+      const highestScore = await Scores.findOne({ userId: id })
         .sort({ score: -1 })
         .select("score")
         .exec();
@@ -77,13 +78,13 @@ const getHighestScore = async (req, res) => {
 
 const addScore = async (req, res) => {
 
-    const { user, score, nickname } = req.body; 
+    const { user, score, nickname, userId } = req.body; 
 
     try {
       const newScore = new Scores({
         user,
         score, 
-        nickname
+        nickname, userId
        });
   
       await newScore.save();
