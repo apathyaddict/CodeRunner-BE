@@ -9,6 +9,10 @@ const scoresSchema = new mongoose.Schema({
   user:{
     type:String,
     required: true, 
+  }, 
+  nickname:{
+    type:String,
+    required: false, 
   }
  
 }, {timestamps:true});
