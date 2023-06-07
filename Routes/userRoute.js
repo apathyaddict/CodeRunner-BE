@@ -11,6 +11,9 @@ router.post("/login", userController.loginUser);
 //Route for find one user
 router.get("/user/:userId", userController.findUserById);
 
+//Route for find one user
+router.put("/user/:id", userController.updateUser);
+
 //Route for find all user
 router.get("/user", userController.findAllUser);
 

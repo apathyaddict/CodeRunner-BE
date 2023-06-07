@@ -94,13 +94,35 @@ const addScore = async (req, res) => {
     }
   };  
 
+  //EDIT SCORE
+
+const editScore = async (req, res) => {
+  console.log(req.body)
+    const { user, score } = req.body; 
+
+    try {
+      const newScore = new Scores({
+        user,
+        score
+       });
+  
+      await newScore.save();
+  
+      res.status(201).json({ message: "Score added successfully" });
+    } catch (err) {
+      console.error(err);
+      res.status(500).send("Internal Server Error");
+    }
+  };  
+
 
 module.exports = {
   getAllScores,
   getScoreByID, 
   getLastScore, 
   getHighestScore,
-    addScore
+  addScore, 
+  editScore
 };
 
 

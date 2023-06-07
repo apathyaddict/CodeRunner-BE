@@ -6,7 +6,7 @@ const secretKey = crypto.randomBytes(32).toString("hex");
 //////////User creation/////////////
 const createUser = async (req, res) => {
   try {
-    const { firstname, lastname, email, password, nickname } = req.body;
+    const { firstName, lastName, email, password, nickname } = req.body;
     // Generate salt
     const salt = await bcrypt.genSalt(10);
 
@@ -20,8 +20,8 @@ const createUser = async (req, res) => {
 
     // Create a new user instance
     const user = new User({
-      firstname,
-      lastname,
+      firstName,
+      lastName,
       email,
       nickname,
       password: hashedPassword,
@@ -37,6 +37,7 @@ const createUser = async (req, res) => {
     res.status(500).json({ error: "Registration failed" });
   }
 };
+
 /////////User login/////////
 const loginUser = async (req, res) => {
   try {
@@ -67,10 +68,9 @@ const loginUser = async (req, res) => {
 
 /////Search users///////
 const findUserById = async (req, res) => {
-  const {userId} = req.params
+  const { userId } = req.params;
 
   try {
-    
     const user = await User.findById(userId);
 
     if (!user) {
@@ -78,7 +78,6 @@ const findUserById = async (req, res) => {
     }
 
     res.status(200).json(user);
-
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Server error" });
@@ -89,10 +88,36 @@ const findAllUser = async (req, res) => {
     const users = await User.find({});
 
     res.status(200).json(users);
-
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: error.message });
+  }
+};
+
+
+//UPDATE a USER
+const updateUser = async (req, res) => {
+
+
+  let updatedUser;
+
+  const { id } = req.params;
+  try {
+    if (req.body.addItems) {
+      updatedUser = await User.findOneAndUpdate(
+        { _id: id },
+        { $push: { scores: req.body.addItems } },
+        { new: true }
+      );
+    }
+
+    if (!updatedUser) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    res.status(200).json(updatedUser);
+  } catch (err) {
+    console.log(err);
+    res.status(500).send(err);
   }
 };
 
@@ -101,4 +126,5 @@ module.exports = {
   loginUser,
   findUserById,
   findAllUser,
+  updateUser,
 };
