@@ -98,7 +98,6 @@ const findAllUser = async (req, res) => {
 //UPDATE a USER
 const updateUser = async (req, res) => {
 
-
   let updatedUser;
 
   const { id } = req.params;

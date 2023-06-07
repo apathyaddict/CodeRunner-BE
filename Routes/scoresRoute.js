@@ -14,7 +14,6 @@ router.get('/scores/high/:id', scoresController.getHighestScore);
 
 router.post('/scores', scoresController.addScore);
 
-
-router.put('/scores', scoresController.editScore);
+//router.put('/scores', scoresController.editScore);
 
 module.exports = router;

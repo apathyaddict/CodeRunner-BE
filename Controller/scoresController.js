@@ -76,13 +76,14 @@ const getHighestScore = async (req, res) => {
 //POST SCORE
 
 const addScore = async (req, res) => {
-  console.log(req.body)
-    const { user, score } = req.body; 
+
+    const { user, score, nickname } = req.body; 
 
     try {
       const newScore = new Scores({
         user,
-        score
+        score, 
+        nickname
        });
   
       await newScore.save();
@@ -97,13 +98,15 @@ const addScore = async (req, res) => {
   //EDIT SCORE
 
 const editScore = async (req, res) => {
-  console.log(req.body)
+
     const { user, score } = req.body; 
 
     try {
+
       const newScore = new Scores({
         user,
-        score
+        score, 
+        nickname
        });
   
       await newScore.save();
