@@ -9,7 +9,7 @@ const scoresRoute = require("./Routes/scoresRoute");
 //Connect to mongodb
 mongoose
   .connect(
-    "mongodb+srv://reemcohen:147Aa147@cluster0.4hzi3jx.mongodb.net/Gaming-app"
+    process.env.MONGO_URI
   )
   .then(() => console.log("connected"));
 
