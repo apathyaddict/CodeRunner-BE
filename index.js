@@ -16,7 +16,9 @@ mongoose
 //Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
+app.use(cors({ origin: ['http://localhost:3001','https://full-app-book-exchange-be.vercel.app']}))
+//app.use(cors())
+
 
 //Routes
 app.use("/", userRoute);
